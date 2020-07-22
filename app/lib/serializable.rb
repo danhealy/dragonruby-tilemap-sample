@@ -1,3 +1,14 @@
+# Throw this file into your app folder, like app/lib/serializable.rb
+#
+# In your main.rb or wherever you require files:
+#   require 'app/lib/serializable.rb'
+#
+# In each class you want to automatically serialize:
+#   class Foo
+#     include Serializable
+#     ...
+#   end
+#
 # Automatically defines #serialize based on instance vars with setter methods
 module Serializable
   def inspect

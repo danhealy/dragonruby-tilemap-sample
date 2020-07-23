@@ -83,39 +83,50 @@ class Game
     puts "Game#finish_initialization: Initialized Game"
   end
 
-  # Display the loading bar if we aren't ready
-  # Otherwise:
-  # - Check the avatar for a frame update
-  # - Start the camera following if the avatar is moving
-  # - Move the camera to the follow target and reposition avatar
-  # - Re-render map based on new camera position
   def tick
     if @ready
-      @avatar.assign(@tileset.sprite_for(@avatar.cur_tile)) if @avatar.tick
-      @camera.start_following(@avatar) if @avatar.walking
-      @avatar.reposition(*@camera.follow)
-      @map.change_tiles(*@camera.pos)
+      tick_main_sequence
     else
-      initialize_tiles
-      loading_label = {
-        x: 640,
-        y: 400,
-        text: "Reticulating Splines...",
-        size_enum: 0,
-        alignment_enum: 1,
-        r: 255,
-        g: 255,
-        b: 255,
-        a: 255
-      }
-      @args.outputs.background_color = [0, 0, 0]
-      @args.outputs.labels  << loading_label
-      @args.outputs.solids  << { x: 320, y: 300, w: 640 * initialization_percent, h: 50, r: 0, g: 255, b: 0, a: 255 }
-      @args.outputs.borders << { x: 320, y: 300, w: 640, h: 50, r: 255, g: 255, b: 255, a: 255 }
+      tick_initialize
     end
 
     @args.outputs.background_color = [0, 0, 0]
 
+    tick_debug_labels
+  end
+
+  # Continue tile initialization & draw loading bar
+  def tick_initialize
+    initialize_tiles
+    loading_label = {
+      x: 640,
+      y: 400,
+      text: "Reticulating Splines...",
+      size_enum: 0,
+      alignment_enum: 1,
+      r: 255,
+      g: 255,
+      b: 255,
+      a: 255
+    }
+    @args.outputs.background_color = [0, 0, 0]
+    @args.outputs.labels  << loading_label
+    @args.outputs.solids  << { x: 320, y: 300, w: 640 * initialization_percent, h: 50, r: 0, g: 255, b: 0, a: 255 }
+    @args.outputs.borders << { x: 320, y: 300, w: 640, h: 50, r: 255, g: 255, b: 255, a: 255 }
+  end
+
+  # - Check the avatar for a frame update
+  # - Start the camera following if the avatar is moving
+  # - Move the camera to the follow target and reposition avatar
+  # - Re-render map based on new camera position
+  def tick_main_sequence
+    @avatar.assign(@tileset.sprite_for(@avatar.cur_tile)) if @avatar.tick
+    @camera.start_following(@avatar) if @avatar.walking
+    @avatar.reposition(*@camera.follow)
+    @map.change_tiles(*@camera.pos)
+  end
+
+  def tick_debug_labels
     @args.outputs.labels << [
       { x: 8, y: 720 - 8,  text: "#{@args.gtk.current_framerate}fps" },
       { x: 8, y: 720 - 88, text: @args.inputs.directional_vector.to_s }

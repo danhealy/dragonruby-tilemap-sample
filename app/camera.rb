@@ -27,15 +27,15 @@ class Camera
     @source_h = SCREEN_HEIGHT
 
     @max_x = target_width - SCREEN_WIDTH
-    @max_y = 0
+    @max_y = target_height - SCREEN_HEIGHT
 
     @min_x = 0
-    @min_y = -(target_height - SCREEN_HEIGHT)
+    @min_y = 0
 
     @velocity_x = 0
     @velocity_y = 0
 
-    move(1800, -1200)
+    move(1800, 1200)
 
     puts "Camera#initialize: Initialized #{@w}x#{@h} Camera looking at '#{targ}' " \
          "which is #{target_width}x#{target_height}, " \
@@ -112,6 +112,6 @@ class Camera
   end
 
   def pos
-    [@pos_x, (-@min_y) + @pos_y]
+    [@pos_x, @pos_y]
   end
 end

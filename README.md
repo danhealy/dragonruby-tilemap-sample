@@ -21,3 +21,6 @@ Suggested things to try:
 - With some work, you could modify the Avatar code to introduce NPCs.
 - You could also try adding objects into the map.  The `Map` `tile_matrix` is a 3D array, just append another sprite to the array.
 - Try changing `Camera::FOLLOW_SPEED` and `Avatar#velocity_x` or the Camera easing function
+
+#### Changelog
+- July 25 2020: Updated for DragonRuby GTK version 46.  Removed negative values in `camera.rb` for `source_y`

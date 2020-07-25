@@ -1,0 +1,5 @@
+devid=danhealy
+devtitle=Dan Healy
+gameid=dragonruby-tilemap-sample
+gametitle=Tilemap Sample
+version=1.0

@@ -1,3 +1,6 @@
+# Deprecated
+Please visit https://github.com/danhealy/dragonruby-zif
+
 # Tilemap Sample
 
 This is a demonstration of tilemaps, using render_target, camera movement, incremental initialization (loading bar), and an animated avatar.  Use the arrow keys, WASD, or your controller to move the avatar around.
@@ -23,4 +26,5 @@ Suggested things to try:
 - Try changing `Camera::FOLLOW_SPEED` and `Avatar#velocity_x` or the Camera easing function
 
 #### Changelog
+- September 13 2020: Deprecated in favor of https://github.com/danhealy/dragonruby-zif
 - July 25 2020: Updated for DragonRuby GTK version 46.  Removed negative values in `camera.rb` for `source_y`
